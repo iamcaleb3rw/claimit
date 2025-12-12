@@ -105,7 +105,7 @@ export default function Navbar() {
         {/* Right side */}
         <div className="flex items-center gap-2">
           <SignedIn>
-            <Button asChild className="text-sm" size="sm">
+            <Button asChild className="text-sm rounded-full" size="sm">
               <a href="/account">My Account</a>
             </Button>
           </SignedIn>

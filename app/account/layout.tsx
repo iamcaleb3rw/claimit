@@ -11,69 +11,82 @@ export default function DashboardLayout({
   return (
     <main>
       <div className="py-1">
-        <Tabs defaultValue="tab-1 my-1">
+        <Tabs defaultValue="tab-1">
           <ScrollArea>
             <TabsList className="relative mb-3 h-auto w-full gap-0.5 bg-transparent p-0 before:absolute before:inset-x-0 before:bottom-0 before:h-px before:bg-border">
-              <Link href={"/account"}>
-                <TabsTrigger
-                  className="overflow-hidden rounded-b-none border-x border-t bg-muted py-2 data-[state=active]:z-10 data-[state=active]:shadow-none"
-                  value="tab-1"
-                >
+              <TabsTrigger
+                asChild
+                className="overflow-hidden rounded-b-none border-x border-t bg-muted py-2 data-[state=active]:z-10 data-[state=active]:shadow-none"
+                value="tab-1"
+              >
+                <Link href={"/account"}>
                   <HouseIcon
                     aria-hidden="true"
                     className="-ms-0.5 me-1.5 opacity-60"
                     size={16}
                   />
                   Overview
-                </TabsTrigger>
-              </Link>
-              <Link href={"/account/lost"}>
-                <TabsTrigger
-                  className="overflow-hidden rounded-b-none border-x border-t bg-muted py-2 data-[state=active]:z-10 data-[state=active]:shadow-none"
-                  value="tab-2"
-                >
+                </Link>
+              </TabsTrigger>
+
+              <TabsTrigger
+                asChild
+                className="overflow-hidden rounded-b-none border-x border-t bg-muted py-2 data-[state=active]:z-10 data-[state=active]:shadow-none"
+                value="tab-2"
+              >
+                <Link href={"/account/lost"}>
                   <PanelsTopLeftIcon
                     aria-hidden="true"
                     className="-ms-0.5 me-1.5 opacity-60"
                     size={16}
                   />
                   Report a Lost Item
-                </TabsTrigger>
-              </Link>
-              <Link href={"/account/found"}>
-                <TabsTrigger
-                  className="overflow-hidden rounded-b-none border-x border-t bg-muted py-2 data-[state=active]:z-10 data-[state=active]:shadow-none"
-                  value="tab-3"
-                >
+                </Link>
+              </TabsTrigger>
+
+              <TabsTrigger
+                asChild
+                className="overflow-hidden rounded-b-none border-x border-t bg-muted py-2 data-[state=active]:z-10 data-[state=active]:shadow-none"
+                value="tab-3"
+              >
+                <Link href={"/account/found"}>
                   <BoxIcon
                     aria-hidden="true"
                     className="-ms-0.5 me-1.5 opacity-60"
                     size={16}
                   />
                   Report a found item
-                </TabsTrigger>
-              </Link>
+                </Link>
+              </TabsTrigger>
+
               <TabsTrigger
+                asChild
                 className="overflow-hidden rounded-b-none border-x border-t bg-muted py-2 data-[state=active]:z-10 data-[state=active]:shadow-none"
                 value="tab-4"
               >
-                <BoxIcon
-                  aria-hidden="true"
-                  className="-ms-0.5 me-1.5 opacity-60"
-                  size={16}
-                />
-                Track / Search for lost items
+                <Link href={"/account/find"}>
+                  <BoxIcon
+                    aria-hidden="true"
+                    className="-ms-0.5 me-1.5 opacity-60"
+                    size={16}
+                  />
+                  Track / Search for lost items
+                </Link>
               </TabsTrigger>
+
               <TabsTrigger
+                asChild
                 className="overflow-hidden rounded-b-none border-x border-t bg-muted py-2 data-[state=active]:z-10 data-[state=active]:shadow-none"
                 value="tab-5"
               >
-                <BoxIcon
-                  aria-hidden="true"
-                  className="-ms-0.5 me-1.5 opacity-60"
-                  size={16}
-                />
-                Matches
+                <Link href={"/account/matches"}>
+                  <BoxIcon
+                    aria-hidden="true"
+                    className="-ms-0.5 me-1.5 opacity-60"
+                    size={16}
+                  />
+                  Matches
+                </Link>
               </TabsTrigger>
             </TabsList>
             <ScrollBar orientation="horizontal" />
