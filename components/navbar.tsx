@@ -1,3 +1,4 @@
+"use client";
 import { Button } from "@/components/ui/button";
 import {
   NavigationMenu,
@@ -10,7 +11,16 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover";
-import { SignedIn, SignedOut } from "@clerk/nextjs";
+import { SignedIn, SignedOut, SignOutButton, useUser } from "@clerk/nextjs";
+import { Skeleton } from "./ui/skeleton";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "./ui/dropdown-menu";
+import { LogOut, User } from "lucide-react";
 
 // Navigation links array to be used in both desktop and mobile menus
 const navigationLinks = [
@@ -21,6 +31,7 @@ const navigationLinks = [
 ];
 
 export default function Navbar() {
+  const { user, isLoaded } = useUser();
   return (
     <header className="px-4 md:px-12">
       <div className="flex h-16 items-center justify-between gap-4">
@@ -108,6 +119,38 @@ export default function Navbar() {
             <Button asChild className="text-sm rounded-full" size="sm">
               <a href="/account">My Account</a>
             </Button>
+            <div className="">
+              {isLoaded ? (
+                <DropdownMenu>
+                  <DropdownMenuTrigger className="focus:ring-0 outline-0 focus-visible:ring-0 focus-visible:ring-offset-0 focus-visible:border-0">
+                    <div className="flex border rounded-full shadow-sm items-center gap-1">
+                      <p className="mx-2 font-medium">{user?.firstName}</p>
+                      <img
+                        src={user?.imageUrl}
+                        className="size-8 rounded-full p-1"
+                      />
+                    </div>
+                  </DropdownMenuTrigger>
+                  <DropdownMenuContent className="w-40">
+                    <DropdownMenuItem>
+                      <User />
+                      Profile
+                    </DropdownMenuItem>
+                    <DropdownMenuSeparator />
+                    <DropdownMenuItem className=" hover:bg-red-100">
+                      <SignOutButton>
+                        <div className="flex items-center">
+                          <LogOut className="text-red-500" />
+                          <p className="text-red-500">Log Out</p>
+                        </div>
+                      </SignOutButton>
+                    </DropdownMenuItem>
+                  </DropdownMenuContent>
+                </DropdownMenu>
+              ) : (
+                <Skeleton />
+              )}
+            </div>
           </SignedIn>
           <SignedOut>
             <Button asChild variant={"secondary"} className="text-sm" size="sm">

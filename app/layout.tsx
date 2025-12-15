@@ -1,6 +1,7 @@
 import type React from "react";
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
+import { Toaster, toast } from "sonner";
 import localFont from "next/font/local";
 import {
   ClerkProvider,
@@ -83,6 +84,7 @@ export default function RootLayout({
 }>) {
   return (
     <ClerkProvider>
+      <Toaster />
       <html
         lang="en"
         className={`${sfPro.variable} ${perfectlyNineties.variable}`}

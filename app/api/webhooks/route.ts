@@ -25,6 +25,7 @@ export async function POST(req: NextRequest) {
             email: evt.data.email_addresses[0].email_address,
             name: `${evt.data.first_name} ${evt.data.last_name}`,
             clerkId: evt.data.id,
+            imgUrl: evt.data.image_url,
           })
           .returning({
             insertedId: users.id,

@@ -50,6 +50,7 @@ export const lostItems = pgTable("lost_items", {
   rewardPoints: integer("reward_points").default(0),
   rewardCash: real("reward_cash").default(0),
   status: varchar("status", { length: 20 }).default("posted"),
+  foundItemOn: timestamp("found_item_on").notNull(),
 
   // Important: correct embedding vector
   embedding: vector("embedding", { dimensions: 3072 }),

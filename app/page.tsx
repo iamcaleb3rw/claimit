@@ -3,6 +3,7 @@ import Image from "next/image";
 
 import { Button } from "@/components/ui/button";
 import { TextAnimate } from "@/components/ui/text-animate";
+import Link from "next/link";
 
 export default function Home() {
   return (
@@ -25,12 +26,15 @@ export default function Home() {
           because every lost item deserves a happy ending.
         </TextAnimate>
         <div className="space-x-2">
-          <Button className="rounded-full">Report a found item</Button>
+          <Button asChild className="rounded-full">
+            <Link href={"/account/found"}>Report a found item</Link>
+          </Button>
           <Button
+            asChild
             className="rounded-full bg-muted-foreground/10"
             variant={"secondary"}
           >
-            Search for a lost item
+            <Link href={"/account/find"}>Search for a lost item</Link>
           </Button>
         </div>
       </div>

@@ -1,7 +1,8 @@
+import { LostItemForm } from "@/components/LostItemForm";
 import React from "react";
 
-const ReportLostItems = () => {
-  return <div>ReportLostItems</div>;
+const LostItemPage = () => {
+  return <LostItemForm />;
 };
 
-export default ReportLostItems;
+export default LostItemPage;
