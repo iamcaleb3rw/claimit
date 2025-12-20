@@ -37,7 +37,7 @@ export const usersRelations = relations(users, ({ many }) => ({
 // =======================================================
 
 export const lostItems = pgTable("lost_items", {
-  id: varchar("id", { length: 50 }).primaryKey(),
+  id: uuid("id").primaryKey().defaultRandom(),
 
   ownerUserId: uuid("owner_user_id")
     .notNull()
@@ -50,10 +50,10 @@ export const lostItems = pgTable("lost_items", {
   rewardPoints: integer("reward_points").default(0),
   rewardCash: real("reward_cash").default(0),
   status: varchar("status", { length: 20 }).default("posted"),
-  foundItemOn: timestamp("found_item_on").notNull(),
+  lostItemOn: timestamp("lost_item_on").notNull(),
 
   // Important: correct embedding vector
-  embedding: vector("embedding", { dimensions: 3072 }),
+  embedding: vector("embedding", { dimensions: 1024 }),
 
   createdAt: timestamp("created_at").defaultNow(),
   updatedAt: timestamp("updated_at").defaultNow(),
@@ -72,7 +72,7 @@ export const lostItemsRelations = relations(lostItems, ({ one, many }) => ({
 // =======================================================
 
 export const foundItems = pgTable("found_items", {
-  id: varchar("id", { length: 50 }).primaryKey(),
+  id: uuid("id").primaryKey().defaultRandom(),
 
   // FOREIGN KEY -> users.id
   finderUserId: uuid("finder_user_id").references(() => users.id, {
@@ -104,12 +104,12 @@ export const matches = pgTable("matches", {
   id: varchar("id", { length: 50 }).primaryKey(),
 
   // FOREIGN KEY -> lost_items.id
-  lostItemId: varchar("lost_item_id", { length: 50 })
+  lostItemId: uuid("lost_item_id")
     .notNull()
     .references(() => lostItems.id, { onDelete: "cascade" }),
 
   // FOREIGN KEY -> found_items.id
-  foundItemId: varchar("found_item_id", { length: 50 })
+  foundItemId: uuid("found_item_id")
     .notNull()
     .references(() => foundItems.id, { onDelete: "cascade" }),
 

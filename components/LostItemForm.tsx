@@ -4,6 +4,7 @@ import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { CalendarIcon, Loader2 } from "lucide-react";
+import axios from "axios";
 import { format } from "date-fns";
 
 import { Button } from "@/components/ui/button";
@@ -29,6 +30,7 @@ import { cn } from "@/lib/utils";
 import { toast } from "sonner";
 
 import { LostItemFormData, lostItemSchema } from "@/lib/validations/lostitem";
+import { useAuth } from "@clerk/nextjs";
 
 interface LostItemFormProps {
   onSubmit?: (data: LostItemFormData) => Promise<void>;
@@ -37,6 +39,7 @@ interface LostItemFormProps {
 
 export function LostItemForm({ onSubmit, defaultValues }: LostItemFormProps) {
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const { userId } = useAuth();
 
   const form = useForm<LostItemFormData>({
     resolver: zodResolver(lostItemSchema),
@@ -55,8 +58,10 @@ export function LostItemForm({ onSubmit, defaultValues }: LostItemFormProps) {
   const handleSubmit = async (data: LostItemFormData) => {
     try {
       setIsSubmitting(true);
-      await onSubmit?.(data);
-      toast.success("Your lost item has been posted");
+      const response = await axios.post("/api/postlost", data);
+      if (response.status == 201) {
+        toast.success("Your lost item has been posted");
+      }
       form.reset();
     } catch {
       toast.error("Failed to submit form");
